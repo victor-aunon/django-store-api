@@ -8,5 +8,3 @@ __pycache__
 # tox
 .tox
 *.egg-info
-
-.github
