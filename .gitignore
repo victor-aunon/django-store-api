@@ -1,0 +1,12 @@
+# python
+virtualenv
+__pycache__
+
+# mypy
+.mypy*
+
+# tox
+.tox
+*.egg-info
+
+.github

@@ -1,0 +1,12 @@
+{% extends "admin/index.html" %}
+{% block content %}
+  <h1>Actions</h1>
+  <form method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Reset Products">
+    {% if message %}
+      <br />
+      <p><strong>{{ message }}</strong></p>
+    {% endif %}
+  </form>
+{% endblock %}
