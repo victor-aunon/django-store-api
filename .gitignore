@@ -8,3 +8,6 @@ __pycache__
 # tox
 .tox
 *.egg-info
+
+# django
+store/db.sqlite3

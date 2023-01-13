@@ -3,7 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from typing import List
 import requests
 
-from api.models import Product, ProductRating
+from api.models import Product
 from custom_types.product import ProductType
 
 
@@ -14,7 +14,6 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         Product.objects.all().delete()
-        ProductRating.objects.all().delete()
 
         products: List[ProductType] = requests.get(
             f"{self.BASE_API_URL}/products"
@@ -24,11 +23,9 @@ class Command(BaseCommand):
             raise ObjectDoesNotExist("There are no products")
 
         for product in products:
-            rating_db = ProductRating(**product["rating"])
-            rating_db.save()
+            rating = product["rating"]
             product.pop("rating")
             product_db = Product(
-                **product,
-                rating=ProductRating.objects.get(pk=product["id"]),
+                **product, rating=rating["rate"], rating_count=rating["count"]
             )
             product_db.save()

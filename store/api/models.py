@@ -1,18 +1,6 @@
 from django.db import models
 
 
-class ProductRating(models.Model):
-    rate = models.FloatField(
-        help_text="The product rating",
-    )
-    count = models.PositiveIntegerField(
-        help_text="The number of ratings of the product"
-    )
-
-    def __str__(self) -> str:
-        return f"{self.rate} ({self.count})"
-
-
 class Product(models.Model):
     title = models.CharField(max_length=120, help_text="The name of the product")
     price = models.FloatField(help_text="The price of the product")
@@ -35,7 +23,12 @@ class Product(models.Model):
     amount = models.PositiveIntegerField(
         default=100, help_text="The number of products available in stock"
     )
-    rating = models.ForeignKey(ProductRating, on_delete=models.PROTECT)
+    rating = models.FloatField(
+        help_text="The product rating", default=0
+    )
+    rating_count = models.PositiveIntegerField(
+        help_text="The number of ratings of the product", default=0
+    )
 
     def __str__(self) -> str:
         return self.title
