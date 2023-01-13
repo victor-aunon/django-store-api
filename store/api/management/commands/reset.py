@@ -14,6 +14,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         Product.objects.all().delete()
+        ProductRating.objects.all().delete()
 
         products: List[ProductType] = requests.get(
             f"{self.BASE_API_URL}/products"
