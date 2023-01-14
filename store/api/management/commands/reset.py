@@ -1,10 +1,8 @@
 from django.core.management import BaseCommand
 from django.core.exceptions import ObjectDoesNotExist
-from typing import List
 import requests
 
 from api.models import Product
-from custom_types.product import ProductType
 
 
 class Command(BaseCommand):
