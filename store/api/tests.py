@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework.test import APIRequestFactory, APITestCase, force_authenticate
 
-from .api_views import ObtainAuthToken, ProductViewSet
+from .api_views import GetToken, ProductViewSet
 
 
 class APITest(APITestCase):
@@ -37,17 +37,17 @@ class APITest(APITestCase):
                 "password": self.test_user["password"],
             },
         )
-        response: Response = ObtainAuthToken.as_view()(request)
+        response: Response = GetToken.as_view()(request)
         response.render()
         self.user_token = response.data["token"]
-        return response.status_code
+        return int(response.status_code)
 
     def create_product(self) -> int:
         self.get_token()
         request = self.factory.post("/api/products/", self.product_test_props)
         force_authenticate(request, user=self.user, token=self.user_token)
         response: Response = self.products_view_create(request)
-        return response.status_code
+        return int(response.status_code)
 
     def test_create_user(self) -> None:
         """Creating a user who is part of the staff"""

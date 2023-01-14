@@ -15,7 +15,7 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         Product.objects.all().delete()
 
-        products: List[ProductType] = requests.get(
+        products = requests.get(
             f"{self.BASE_API_URL}/products"
         ).json()
 
