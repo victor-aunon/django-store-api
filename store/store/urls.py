@@ -22,6 +22,7 @@ from store.views import commands
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("commands/", commands, name="commands"),
+    path("", include("api.urls")),
 ]
 
 if settings.DEBUG:
